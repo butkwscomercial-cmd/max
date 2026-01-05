@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MA - Gestão Nex24</title>
+    <style>
+        /* Reset básico e cores da Nex24 */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #667eea, #764ba2); min-height: 100vh; padding: 20px; color: #333; }
+        .container { max-width: 1100px; margin: 0 auto; background: #fff; border-radius: 18px; box-shadow: 0 15px 50px rgba(0,0,0,0.2); overflow: hidden; display: grid; grid-template-columns: 1fr 320px; }
+        
+        .painel-principal { padding: 30px; border-right: 1px solid #eee; }
+        .painel-max { background: #f9f9ff; padding: 30px; text-align: center; }
+
+        .header-caixa { background: #764ba2; color: #fff; padding: 20px; text-align: center; grid-column: span 2; }
+        
+        .resumo { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 25px; }
+        .box { padding: 15px; border-radius: 12px; color: #fff; text-align: center; }
+        .b-ent { background: #2ecc71; } .b-sai { background: #e74c3c; } .b-tot { background: #3498db; }
+
+        .form-mov { background: #f4f4f4; padding: 20px; border-radius: 12px; margin-bottom: 25px; }
+        .grid-inputs { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+        
+        input, select, button { padding: 10px; border: 1px solid #ddd; border-radius: 6px; }
+        .btn-add { background: #764ba2; color: #fff; border: none; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; }
+
+        .lista-movs { max-height: 350px; overflow-y: auto; }
+        .item { display: flex; justify-content: space-between; padding: 12px; border-bottom: 1px solid #eee; align-items: center; }
+        .v-pos { color: #27ae60; font-weight: bold; } .v-neg { color: #c0392b; font-weight: bold; }
+        .btn-lixo { background: none; border: none; cursor: pointer; font-size: 1.2em; }
+
+        .max-avatar { font-size: 70px; margin-bottom: 15px; animation: flutuar 3s infinite; }
+        @keyframes flutuar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+        @media (max-width: 850px) { .container { grid-template-columns: 1fr; } .painel-max { border-top: 2px solid #ddd; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-caixa">
+        <h1>💰 Nex24 - Sistema MAX</h1>
+    </div>
+
+    <div class="painel-principal">
+        <div class="resumo">
+            <div class="box b-ent"><span>Entradas</span><div id="res-ent">€0,00</div></div>
+            <div class="box b-sai"><span>Saídas</span><div id="res-sai">€0,00</div></div>
+            <div class="box b-tot"><span>Saldo</span><div id="res-tot">€0,00</div></div>
+        </div>
+
+        <div class="form-mov">
+            <div class="grid-inputs">
+                <input type="text" id="desc" placeholder="Descrição (ex: Venda de serviço)">
+                <input type="number" id="valor" placeholder="€ Valor">
+                <select id="tipo">
+                    <option value="in">Receita (+)</option>
+                    <option value="out">Despesa (-)</option>
+                </select>
+            </div>
+            <select id="cat" style="width: 100%;">
+                <option value="Serviços">Serviços Nex24</option>
+                <option value="Alimentação">Alimentação</option>
+                <option value="Tecnologia">Tecnologia/Software</option>
+                <option value="Outros">Outros</option>
+            </select>
+            <button class="btn-add" onclick="novoMov()">+ Registar Movimento</button>
+        </div>
+
+        <div class="lista-movs" id="lista"></div>
+    </div>
+
+    <div class="painel-max">
+        <div class="max-avatar" id="max-emoji">😊</div>
+        <h2 style="color: #764ba2;">MAX</h2>
+        <p style="font-size: 0.9em; color: #666; margin-bottom: 20px;">Consultor Nex24</p>
+        <div id="max-txt" style="b
